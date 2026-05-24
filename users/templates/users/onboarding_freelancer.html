@@ -1,0 +1,10 @@
+<h2>Профиль фрилансера</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <input name="skills" placeholder="Навыки">
+    <input name="portfolio_link" placeholder="Портфолио">
+
+    <button type="submit">Сохранить</button>
+</form>

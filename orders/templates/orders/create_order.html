@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+
+            <div class="card p-4 shadow-sm">
+
+                <!-- ЗАГОЛОВОК -->
+                <div class="mb-4">
+
+                    <h2>
+                        Создать заказ
+                    </h2>
+
+                    <p class="text-muted">
+                        Опишите задачу и найдите исполнителя
+                    </p>
+
+                </div>
+
+                <!-- ФОРМА -->
+                <form method="post">
+
+                    {% csrf_token %}
+
+                    <!-- НАЗВАНИЕ -->
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Название заказа
+                        </label>
+
+                        {{ form.title }}
+
+                    </div>
+
+                    <!-- ОПИСАНИЕ -->
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Описание
+                        </label>
+
+                        {{ form.description }}
+
+                    </div>
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Бюджет
+                        </label>
+
+                        {{ form.budget }}
+
+                    </div>
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Дедлайн
+                        </label>
+
+                        {{ form.deadline }}
+
+                    </div>
+
+                    <!-- КНОПКА -->
+                    <button type="submit" class="btn btn-warning w-100">
+                        Опубликовать заказ
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

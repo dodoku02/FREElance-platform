@@ -1,0 +1,9 @@
+<h2>Профиль заказчика</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    <input name="company_name" placeholder="Название компании">
+
+    <button type="submit">Сохранить</button>
+</form>

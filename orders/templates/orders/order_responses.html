@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <!-- ЗАГОЛОВОК -->
+    <div class="card p-4 mb-4">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+
+                <h2>
+                    Отклики на заказ
+                </h2>
+
+                <p class="text-muted mb-0">
+                    {{ order.title }}
+                </p>
+
+            </div>
+
+            <a href="/orders/{{ order.id }}/"
+               class="btn btn-outline-dark">
+                Назад к заказу
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- СПИСОК ОТКЛИКОВ -->
+    {% for response in responses %}
+
+        <div class="card p-4 mb-3">
+
+            <div class="d-flex justify-content-between align-items-start mb-3">
+
+                <div>
+
+                    <h4>
+                        {{ response.freelancer.username }}
+                    </h4>
+
+                    <p class="text-muted mb-0">
+                        Фрилансер
+                    </p>
+
+                </div>
+
+                {% if order.selected_freelancer == response.freelancer %}
+
+                    <span class="badge bg-success">
+                        Выбран
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+            <hr>
+
+            <!-- ТЕКСТ -->
+            <div class="mb-4">
+
+                <h5>
+                    Отклик
+                </h5>
+
+                <p>
+                    {{ response.message }}
+                </p>
+
+            </div>
+
+            <!-- КНОПКА -->
+            {% if not order.selected_freelancer %}
+
+                <form method="post"
+                      action="/orders/{{ order.id }}/select/{{ response.freelancer.id }}/">
+
+                    {% csrf_token %}
+
+                    <button type="submit"
+                            class="btn btn-warning">
+                        Выбрать исполнителя
+                    </button>
+
+                </form>
+
+            {% endif %}
+
+        </div>
+
+    {% empty %}
+
+        <div class="card p-4">
+
+            <p class="text-muted mb-0">
+                Пока никто не откликнулся
+            </p>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

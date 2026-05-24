@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+
+            <!-- ИНФОРМАЦИЯ О ЗАКАЗЕ -->
+            <div class="card p-4 mb-4">
+
+                <h2 class="mb-3">
+                    Отклик на заказ
+                </h2>
+
+                <h4>
+                    {{ order.title }}
+                </h4>
+
+                <p class="text-muted">
+                    {{ order.description|truncatechars:200 }}
+                </p>
+
+                <div class="d-flex gap-3">
+
+                    <span class="badge bg-warning text-dark">
+                        {{ order.budget }} ₽
+                    </span>
+
+                    <span class="badge bg-dark">
+                        До {{ order.deadline }}
+                    </span>
+
+                </div>
+
+            </div>
+
+            <!-- ФОРМА -->
+            <div class="card p-4">
+
+                <h4 class="mb-4">
+                    Ваш отклик
+                </h4>
+
+                <form method="post">
+
+                    {% csrf_token %}
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Напишите заказчику
+                        </label>
+
+                        {{ form.message }}
+
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-warning w-100">
+                        Отправить отклик
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

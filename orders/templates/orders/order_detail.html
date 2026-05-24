@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-9">
+
+            <!-- ОСНОВНАЯ КАРТОЧКА -->
+            <div class="card p-4 mb-4">
+
+                <!-- ВЕРХ -->
+                <div class="d-flex justify-content-between align-items-start mb-3">
+
+                    <div>
+
+                        <h2 class="mb-2">
+                            {{ order.title }}
+                        </h2>
+
+                        <p class="text-muted mb-0">
+                            Заказчик: {{ order.client.username }}
+                        </p>
+
+                    </div>
+
+                    {% if order.status == 'open' %}
+
+                    <span class="badge bg-success fs-6">
+                        Открыт
+                    </span>
+
+                    {% else %}
+
+                    <span class="badge bg-warning text-dark fs-6">
+                        В работе
+                    </span>
+
+                    {% endif %}
+
+                </div>
+
+                <hr>
+
+                <!-- ОПИСАНИЕ -->
+                <div class="mb-4">
+
+                    <h5>
+                        Описание
+                    </h5>
+
+                    <p>
+                        {{ order.description }}
+                    </p>
+
+                </div>
+
+                <!-- ИНФА -->
+                <div class="row mb-4">
+
+                    <div class="col-md-6">
+
+                        <div class="border rounded p-3">
+
+                            <h6 class="text-muted">
+                                Бюджет
+                            </h6>
+
+                            <h4>
+                                {{ order.budget }} ₽
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="border rounded p-3">
+
+                            <h6 class="text-muted">
+                                Дедлайн
+                            </h6>
+
+                            <h4>
+                                {{ order.deadline }}
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- КНОПКИ -->
+                <div class="d-flex gap-2 flex-wrap">
+
+                    
+                    {% if order.status == 'in_progress' %}
+
+                    <a href="/orders/{{ order.id }}/chat/" class="btn btn-success">
+                        Чат 
+                    </a>
+
+                    {% endif %}
+
+                    <!-- ЗАКАЗЧИК -->
+                    {% if user == order.client %}
+
+                    <a href="/orders/{{ order.id }}/responses/" class="btn btn-dark">
+                        Смотреть отклики
+                    </a>
+
+                    
+
+                    
+
+                    {% endif %}
+
+                    <a href="/orders/" class="btn btn-outline-dark">
+                        Назад
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- ИСПОЛНИТЕЛЬ -->
+            {% if order.selected_freelancer %}
+
+            <div class="card p-4 mb-4">
+
+                <h4 class="mb-3">
+                    Исполнитель
+                </h4>
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <h5>
+                            {{ order.selected_freelancer.username }}
+                        </h5>
+
+                        <p class="text-muted mb-0">
+                            Исполнитель выбран
+                        </p>
+
+                    </div>
+
+                    <span class="badge bg-warning text-dark">
+                        В работе
+                    </span>
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

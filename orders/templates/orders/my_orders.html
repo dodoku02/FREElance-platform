@@ -1,0 +1,12 @@
+<h2>Мои заказы</h2>
+
+{% for order in orders %}
+    <div style="border:1px solid #ccc; margin:10px; padding:10px;">
+        <h3>{{ order.title }}</h3>
+        <p>{{ order.description }}</p>
+
+        <a href="/orders/{{ order.id }}/responses/">Смотреть отклики</a>
+    </div>
+{% empty %}
+    <p>У вас пока нет заказов</p>
+{% endfor %}

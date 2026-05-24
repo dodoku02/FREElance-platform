@@ -1,0 +1,223 @@
+<div class="container mt-4">
+
+    <!-- ПРИВЕТСТВИЕ -->
+    <div class="card p-4 mb-4">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+                <h2>
+                    Привет, {{ user.username }} 👋
+                </h2>
+
+                <p class="text-muted mb-0">
+                    Добро пожаловать в кабинет фрилансера
+                </p>
+            </div>
+
+            <a href="/orders/" class="btn btn-warning">
+                Найти заказы
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <!-- ЛЕВАЯ КОЛОНКА -->
+        <div class="col-md-4">
+
+            <!-- ПРОФИЛЬ -->
+            <div class="card p-3 mb-4">
+
+                <h4 class="mb-3">
+                    Профиль
+                </h4>
+
+                <p>
+                    <strong>Логин:</strong>
+                    {{ user.username }}
+                </p>
+
+                <p>
+                    <strong>Роль:</strong>
+                    Фрилансер
+                </p>
+
+                <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary">
+                    Редактировать профиль
+                </a>
+
+            </div>
+
+            <!-- БЫСТРЫЕ ДЕЙСТВИЯ -->
+            <div class="card p-3 mb-4">
+
+                <h4 class="mb-3">
+                    Быстрые действия
+                </h4>
+
+                <div class="d-grid gap-2">
+
+                    <a href="/orders/" class="btn btn-warning">
+                        Все заказы
+                    </a>
+
+                    <a href="#my-orders" class="btn btn-outline-dark">
+                        Мои заказы
+                    </a>
+
+                    <form action="/users/logout/" method="post">
+                        {% csrf_token %}
+
+                        <button type="submit" class="btn btn-outline-danger w-100">
+                            Выйти
+                        </button>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ПРАВАЯ КОЛОНКА -->
+        <div class="col-md-8">
+
+            <!-- СТАТИСТИКА -->
+            <div class="row mb-4">
+
+                <div class="col-md-6">
+
+                    <div class="card p-3 text-center">
+
+                        <h5>
+                            Активные заказы
+                        </h5>
+
+                        <h2>
+                            {{ my_orders|length }}
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="card p-3 text-center">
+
+                        <h5>
+                            Доступные заказы
+                        </h5>
+
+                        <h2>
+                            {{ open_orders|length }}
+                        </h2>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- МОИ ЗАКАЗЫ -->
+            <div class="card p-3 mb-4" id="my-orders">
+
+                <div class="d-flex justify-content-between mb-3">
+
+                    <h4>
+                        Мои заказы
+                    </h4>
+
+                    <a href="/orders/" class="btn btn-sm btn-outline-dark">
+                        Все
+                    </a>
+
+                </div>
+
+                {% for order in my_orders %}
+
+                <div class="border rounded p-3 mb-3">
+
+                    <h5>
+                        {{ order.title }}
+                    </h5>
+
+                    <p>
+                        {{ order.description|truncatechars:100 }}
+                    </p>
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <span class="badge bg-warning text-dark">
+                            В работе
+                        </span>
+
+                        <a href="/orders/{{ order.id }}/" class="btn btn-sm btn-dark">
+                            Открыть
+                        </a>
+
+                    </div>
+
+                </div>
+
+                {% empty %}
+
+                <p class="text-muted">
+                    Пока у вас нет активных заказов
+                </p>
+
+                {% endfor %}
+
+            </div>
+
+            <!-- НОВЫЕ ЗАКАЗЫ -->
+            <div class="card p-3">
+
+                <div class="d-flex justify-content-between mb-3">
+
+                    <h4>
+                        Новые заказы
+                    </h4>
+
+                    <a href="/orders/" class="btn btn-sm btn-outline-dark">
+                        Смотреть все
+                    </a>
+
+                </div>
+
+                {% for order in open_orders %}
+
+                <div class="border rounded p-3 mb-3">
+
+                    <h5>
+                        {{ order.title }}
+                    </h5>
+
+                    <p>
+                        {{ order.description|truncatechars:100 }}
+                    </p>
+
+                    <a href="/orders/{{ order.id }}/" class="btn btn-warning">
+                        Подробнее
+                    </a>
+
+                </div>
+
+                {% empty %}
+
+                <p class="text-muted">
+                    Сейчас нет новых заказов
+                </p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
